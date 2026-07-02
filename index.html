@@ -3,7 +3,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Rulo360 — Compra y venta de autos usados</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -31,7 +31,9 @@ body{
   color:var(--texto);
   min-height:100%;
   padding-bottom:70px;
+  -webkit-tap-highlight-color:transparent;
 }
+button,input,.chip{touch-action:manipulation}
 h1,h2,h3,.poppins{font-family:'Poppins',sans-serif}
 .wrap{max-width:960px;margin:0 auto;padding:0 16px}
 
@@ -75,7 +77,16 @@ h1,h2,h3,.poppins{font-family:'Poppins',sans-serif}
   display:grid;grid-template-columns:repeat(4,1fr);gap:12px;
   margin-top:-46px;position:relative;z-index:5;
 }
-@media(max-width:640px){.marcador{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){
+  .marcador{grid-template-columns:repeat(4,1fr);gap:8px;margin-top:-40px}
+  .dato{padding:10px 4px;border-radius:12px}
+  .dato .et{font-size:9px;letter-spacing:.6px}
+  .dato .val{font-size:13.5px}
+  .hero{padding:22px 0 62px}
+  .hero p{font-size:13.5px}
+  .badges{gap:8px;margin-top:14px}
+  .badge{font-size:11px;padding:6px 10px}
+}
 .dato{
   background:var(--blanco);border:1px solid var(--borde);border-radius:var(--radio);
   box-shadow:var(--sombra);padding:14px 16px;text-align:center;
@@ -184,6 +195,7 @@ input[type=text]:focus{outline:none;border-color:var(--azul);box-shadow:0 0 0 3p
 .btn{
   font-family:'Poppins';font-weight:700;font-size:14px;
   border:none;border-radius:999px;padding:12px 24px;cursor:pointer;
+  min-height:46px;
   transition:background .15s,transform .1s;
 }
 .btn:active{transform:scale(.97)}
@@ -227,6 +239,49 @@ input[type=text]:focus{outline:none;border-color:var(--azul);box-shadow:0 0 0 3p
 .overlay p{margin-bottom:10px;font-size:14.5px;color:var(--texto)}
 .overlay .btn{margin-top:8px}
 .oculto{display:none !important}
+/* ── Móvil: modo juego de bolsillo ──── */
+@media(max-width:720px){
+  body{padding-bottom:130px}
+  .card{padding:16px;border-radius:12px;margin-top:16px}
+  .cara{width:58px;height:58px;font-size:32px}
+  .cliente-nombre{font-size:15.5px}
+  .globo{font-size:14px;padding:11px 13px}
+  .ficha-foto{height:100px;font-size:46px}
+  .specs{font-size:12.5px}
+  .pide .monto{font-size:18px}
+
+  /* Chips deslizables con el pulgar */
+  .chips{flex-wrap:nowrap;overflow-x:auto;padding-bottom:6px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{flex:none;padding:10px 15px;font-size:13.5px}
+
+  /* Barra de oferta fija al fondo de la pantalla */
+  .linea-oferta{
+    position:fixed;left:0;right:0;bottom:0;z-index:30;
+    background:var(--blanco);border-top:1px solid var(--borde);
+    padding:10px 12px calc(10px + env(safe-area-inset-bottom));
+    box-shadow:0 -6px 20px rgba(14,42,71,.14);
+  }
+  .linea-oferta .btn{padding:12px 18px;font-size:13.5px;white-space:nowrap}
+  #uiSiguiente{
+    position:fixed;left:0;right:0;bottom:0;z-index:30;margin:0;
+    background:var(--blanco);border-top:1px solid var(--borde);
+    padding:10px 12px calc(10px + env(safe-area-inset-bottom));
+    box-shadow:0 -6px 20px rgba(14,42,71,.14);
+  }
+  #uiSiguiente .btn{width:100%;padding:14px 0;font-size:15px}
+  .acciones-extra{justify-content:center}
+
+  /* Catálogo en 2 columnas */
+  .grid-autos{grid-template-columns:repeat(2,1fr);gap:10px}
+  .auto-foto{height:78px;font-size:36px}
+  .auto-body{padding:10px 11px}
+  .auto-body .desc{font-size:13px}
+  .auto-body .sub{font-size:11px}
+  .auto-body .btn{min-height:40px;font-size:12.5px}
+  .log{max-height:150px;-webkit-overflow-scrolling:touch}
+  .overlay .caja{padding:22px}
+}
 .flash{animation:flashVerde .6s}
 @keyframes flashVerde{0%{box-shadow:0 0 0 3px var(--verde)}100%{box-shadow:var(--sombra)}}
 footer{margin-top:40px;text-align:center;font-size:12px;color:var(--gris)}
@@ -320,7 +375,7 @@ footer{margin-top:40px;text-align:center;font-size:12px;color:var(--gris)}
         <div class="et">Tu oferta de compra inmediata</div>
         <div class="chips" id="uiChips"></div>
         <div class="linea-oferta">
-          <input type="text" id="inputOferta" inputmode="numeric" placeholder="Ej: 4.500.000" aria-label="Monto de tu oferta">
+          <input type="text" id="inputOferta" inputmode="numeric" enterkeyhint="send" autocomplete="off" placeholder="Ej: 4.500.000" aria-label="Monto de tu oferta">
           <button class="btn primario" id="btnOfertar">Enviar oferta</button>
         </div>
         <div class="acciones-extra">
@@ -541,6 +596,7 @@ function ofertar(){
 
 function comprar(monto){
   const c = S.actual;
+  document.getElementById("inputOferta").blur();
   S.plata -= monto;
   S.patio.push({desc:c.auto.m+" "+c.anio, e:c.auto.e, km:c.km, valor:c.valor, pagado:monto, defecto:c.defecto});
   decir(pick(FRASES.acepta));
@@ -556,6 +612,7 @@ function comprar(monto){
 }
 
 function ofender(frase, conRep){
+  document.getElementById("inputOferta").blur();
   decir(frase);
   const caraEl = document.getElementById("uiCara");
   caraEl.textContent = "🤬";
@@ -584,6 +641,9 @@ function siguiente(){
   document.getElementById("inputOferta").value = "";
   nuevoCliente();
   render();
+  if(window.innerWidth<=720){
+    document.querySelector(".marcador").scrollIntoView({behavior:"smooth",block:"start"});
+  }
 }
 
 /* ══════════ Venta del catálogo ══════════ */
@@ -614,7 +674,13 @@ function finJuego(){
 }
 
 /* ══════════ Render ══════════ */
-function decir(t){ document.getElementById("uiGlobo").textContent = t; }
+function decir(t){
+  const g = document.getElementById("uiGlobo");
+  g.textContent = t;
+  if(window.innerWidth<=720 && S.dia){
+    setTimeout(()=>g.scrollIntoView({behavior:"smooth",block:"center"}),80);
+  }
+}
 
 function render(flashPlata){
   const c = S.actual;
