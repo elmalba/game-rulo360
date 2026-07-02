@@ -113,6 +113,7 @@ h1,h2,h3,.poppins{font-family:'Poppins',sans-serif}
 
 /* ── Negociación ────────────────────── */
 .nego{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.nego>*{min-width:0;max-width:100%}
 @media(max-width:720px){.nego{grid-template-columns:1fr}}
 
 .cliente-box{display:flex;flex-direction:column}
@@ -166,12 +167,12 @@ h1,h2,h3,.poppins{font-family:'Poppins',sans-serif}
   display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;
   margin-top:10px;font-size:13px;
 }
-.specs .s{display:flex;justify-content:space-between;gap:8px;border-bottom:1px dashed var(--borde);padding:4px 0}
-.specs .s span{color:var(--gris)}
-.specs .s b{color:var(--texto);text-align:right}
+.specs .s{display:flex;justify-content:space-between;gap:8px;border-bottom:1px dashed var(--borde);padding:4px 0;min-width:0}
+.specs .s span{color:var(--gris);flex:none}
+.specs .s b{color:var(--texto);text-align:right;overflow-wrap:anywhere;min-width:0}
 .pide{
   margin-top:12px;background:var(--fondo);border-radius:10px;padding:10px 14px;
-  display:flex;justify-content:space-between;align-items:center;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px;
 }
 .pide small{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--gris);font-weight:600}
 .pide .monto{font-family:'Poppins';font-weight:800;font-size:20px;color:var(--navy)}
@@ -179,7 +180,7 @@ h1,h2,h3,.poppins{font-family:'Poppins',sans-serif}
 /* ── Cotizador (controles) ──────────── */
 .cotizador{margin-top:18px;grid-column:1 / -1}
 .cotizador .et{font-size:12px;font-weight:700;color:var(--navy);margin-bottom:8px}
-.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;max-width:100%}
 .chip{
   background:var(--blanco);border:1.5px solid var(--borde);color:var(--texto);
   border-radius:999px;padding:7px 14px;font-family:'Inter';font-weight:600;font-size:13px;
