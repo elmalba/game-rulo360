@@ -1,0 +1,702 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rulo360 — Compra y venta de autos usados</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0E2A47;
+  --navy-2:#123356;
+  --azul:#1B62D6;
+  --azul-h:#1554BA;
+  --naranja:#FF8A00;
+  --fondo:#F4F6F9;
+  --blanco:#FFFFFF;
+  --texto:#1D2B3A;
+  --gris:#5A6B7F;
+  --borde:#E3E9F0;
+  --verde:#1FA05C;
+  --rojo:#E23D3D;
+  --sombra:0 4px 18px rgba(14,42,71,.08);
+  --radio:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--fondo);
+  color:var(--texto);
+  min-height:100%;
+  padding-bottom:70px;
+}
+h1,h2,h3,.poppins{font-family:'Poppins',sans-serif}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+
+/* ── Navbar ─────────────────────────── */
+.nav{
+  background:var(--blanco);
+  box-shadow:0 1px 0 var(--borde);
+  position:sticky;top:0;z-index:20;
+}
+.nav-in{
+  max-width:960px;margin:0 auto;padding:14px 16px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+}
+.logo{font-family:'Poppins';font-weight:800;font-size:24px;color:var(--navy);letter-spacing:-.5px}
+.logo b{color:var(--naranja);font-weight:800}
+.nav-links{display:flex;gap:20px;font-size:14px;font-weight:600;color:var(--gris)}
+.nav-links span{cursor:default}
+.nav-links span.activo{color:var(--azul)}
+@media(max-width:640px){.nav-links{display:none}}
+.nav-fono{font-size:13px;font-weight:700;color:var(--navy);background:var(--fondo);border:1px solid var(--borde);border-radius:999px;padding:8px 14px;white-space:nowrap}
+
+/* ── Hero ───────────────────────────── */
+.hero{
+  background:linear-gradient(120deg,var(--navy) 0%,var(--navy-2) 55%,#1A4370 100%);
+  color:#fff;padding:34px 0 78px;
+}
+.hero h1{font-size:clamp(26px,5vw,40px);font-weight:700;line-height:1.15}
+.hero h1 b{color:var(--naranja)}
+.hero p{margin-top:8px;color:#B9C8DA;font-size:15px;max-width:520px}
+.badges{display:flex;gap:14px;flex-wrap:wrap;margin-top:18px}
+.badge{
+  display:flex;align-items:center;gap:7px;
+  font-size:13px;font-weight:600;color:#DCE7F3;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
+  border-radius:999px;padding:7px 14px;
+}
+.badge i{font-style:normal;color:var(--naranja)}
+
+/* ── Marcador (flotante sobre el hero) ─ */
+.marcador{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:12px;
+  margin-top:-46px;position:relative;z-index:5;
+}
+@media(max-width:640px){.marcador{grid-template-columns:repeat(2,1fr)}}
+.dato{
+  background:var(--blanco);border:1px solid var(--borde);border-radius:var(--radio);
+  box-shadow:var(--sombra);padding:14px 16px;text-align:center;
+}
+.dato .et{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--gris);font-weight:600}
+.dato .val{font-family:'Poppins';font-weight:700;font-size:20px;margin-top:2px}
+.dato .val.plata{color:var(--verde)}
+.dato .val.dia{color:var(--azul)}
+.dato .val.rep{color:var(--naranja);letter-spacing:2px}
+
+/* ── Secciones / tarjetas ───────────── */
+.card{
+  background:var(--blanco);border:1px solid var(--borde);border-radius:var(--radio);
+  box-shadow:var(--sombra);padding:22px;margin-top:22px;
+}
+.sec-titulo{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.sec-titulo h2{font-size:18px;font-weight:700;color:var(--navy)}
+.sec-titulo .pill{
+  font-size:11px;font-weight:700;color:var(--azul);
+  background:#E8F0FD;border-radius:999px;padding:4px 10px;
+}
+
+/* ── Negociación ────────────────────── */
+.nego{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+@media(max-width:720px){.nego{grid-template-columns:1fr}}
+
+.cliente-box{display:flex;flex-direction:column}
+.cliente-top{display:flex;gap:14px;align-items:center}
+.cara{
+  font-size:42px;line-height:1;flex:none;
+  width:72px;height:72px;display:flex;align-items:center;justify-content:center;
+  background:var(--fondo);border:1px solid var(--borde);border-radius:50%;
+}
+.cara.molesto{animation:temblor .35s}
+@keyframes temblor{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px) rotate(-4deg)}75%{transform:translateX(5px) rotate(4deg)}}
+@media (prefers-reduced-motion:reduce){.cara.molesto{animation:none}}
+.cliente-nombre{font-family:'Poppins';font-weight:700;font-size:17px;color:var(--navy)}
+.cliente-tag{font-size:13px;color:var(--gris)}
+.verificado{
+  display:inline-flex;align-items:center;gap:5px;margin-top:4px;
+  font-size:11px;font-weight:700;color:var(--verde);
+  background:#E7F6EE;border-radius:999px;padding:3px 9px;
+}
+
+.globo{
+  position:relative;background:var(--fondo);border:1px solid var(--borde);
+  border-radius:12px;padding:12px 15px;margin-top:14px;
+  font-size:14.5px;font-weight:500;color:var(--texto);
+}
+.globo::before{
+  content:"";position:absolute;top:-9px;left:28px;
+  border:9px solid transparent;border-bottom-color:var(--fondo);border-top:none;
+}
+
+.paciencia{margin-top:14px}
+.paciencia .et{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--gris);font-weight:600;margin-bottom:5px;display:flex;justify-content:space-between}
+.barra{height:8px;background:var(--fondo);border-radius:6px;overflow:hidden;border:1px solid var(--borde)}
+.barra i{display:block;height:100%;border-radius:5px;background:var(--verde);transition:width .4s,background .4s}
+
+/* Ficha del vehículo */
+.ficha{border:1px solid var(--borde);border-radius:var(--radio);overflow:hidden}
+.ficha-foto{
+  height:120px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(120deg,#DFE9F5,#C9D9EC);
+  font-size:56px;position:relative;
+}
+.ficha-foto .tag360{
+  position:absolute;top:10px;left:10px;
+  font-size:10px;font-weight:800;letter-spacing:1px;color:#fff;
+  background:var(--naranja);border-radius:6px;padding:4px 8px;font-family:'Poppins';
+}
+.ficha-body{padding:14px 16px}
+.ficha-body h3{font-size:17px;color:var(--navy);font-weight:700}
+.specs{
+  display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;
+  margin-top:10px;font-size:13px;
+}
+.specs .s{display:flex;justify-content:space-between;gap:8px;border-bottom:1px dashed var(--borde);padding:4px 0}
+.specs .s span{color:var(--gris)}
+.specs .s b{color:var(--texto);text-align:right}
+.pide{
+  margin-top:12px;background:var(--fondo);border-radius:10px;padding:10px 14px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.pide small{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--gris);font-weight:600}
+.pide .monto{font-family:'Poppins';font-weight:800;font-size:20px;color:var(--navy)}
+
+/* ── Cotizador (controles) ──────────── */
+.cotizador{margin-top:18px;grid-column:1 / -1}
+.cotizador .et{font-size:12px;font-weight:700;color:var(--navy);margin-bottom:8px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.chip{
+  background:var(--blanco);border:1.5px solid var(--borde);color:var(--texto);
+  border-radius:999px;padding:7px 14px;font-family:'Inter';font-weight:600;font-size:13px;
+  cursor:pointer;transition:.15s;
+}
+.chip:hover,.chip:focus-visible{border-color:var(--azul);color:var(--azul);background:#F2F7FF}
+.linea-oferta{display:flex;gap:10px}
+input[type=text]{
+  flex:1;min-width:0;
+  background:var(--blanco);border:1.5px solid var(--borde);border-radius:12px;
+  color:var(--texto);font-family:'Inter';font-weight:700;font-size:17px;
+  padding:12px 14px;
+}
+input[type=text]:focus{outline:none;border-color:var(--azul);box-shadow:0 0 0 3px rgba(27,98,214,.15)}
+.btn{
+  font-family:'Poppins';font-weight:700;font-size:14px;
+  border:none;border-radius:999px;padding:12px 24px;cursor:pointer;
+  transition:background .15s,transform .1s;
+}
+.btn:active{transform:scale(.97)}
+.btn.primario{background:var(--azul);color:#fff}
+.btn.primario:hover{background:var(--azul-h)}
+.btn.fantasma{background:transparent;color:var(--gris);font-size:13px;padding:12px 14px}
+.btn.fantasma:hover{color:var(--rojo)}
+.btn.verde{background:var(--verde);color:#fff}
+.btn.naranja{background:var(--naranja);color:#fff}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.acciones-extra{margin-top:10px;display:flex;gap:8px;justify-content:flex-end}
+
+/* ── Catálogo (patio) ───────────────── */
+.grid-autos{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px}
+.patio-vacio{color:var(--gris);font-size:14px;padding:6px 0}
+.auto-card{border:1px solid var(--borde);border-radius:var(--radio);overflow:hidden;background:var(--blanco);display:flex;flex-direction:column}
+.auto-foto{height:96px;display:flex;align-items:center;justify-content:center;font-size:44px;background:linear-gradient(120deg,#DFE9F5,#C9D9EC)}
+.auto-body{padding:12px 14px;flex:1;display:flex;flex-direction:column;gap:4px}
+.auto-body .desc{font-family:'Poppins';font-weight:700;font-size:14px;color:var(--navy)}
+.auto-body .sub{font-size:12px;color:var(--gris)}
+.auto-body .defecto{font-size:11.5px;font-weight:700;color:var(--rojo);background:#FDEBEB;border-radius:6px;padding:3px 8px;align-self:flex-start}
+.auto-body .btn{margin-top:auto;padding:9px 0;width:100%;font-size:13px}
+
+/* ── Registro ───────────────────────── */
+.log{max-height:190px;overflow-y:auto;font-size:13.5px;color:var(--gris)}
+.log p{padding:6px 0;border-bottom:1px solid var(--borde)}
+.log .bueno{color:var(--verde);font-weight:600}
+.log .malo{color:var(--rojo);font-weight:600}
+
+/* ── Overlays ───────────────────────── */
+.overlay{
+  position:fixed;inset:0;background:rgba(14,42,71,.55);backdrop-filter:blur(3px);
+  display:flex;align-items:center;justify-content:center;padding:16px;z-index:50;
+}
+.overlay .caja{
+  background:var(--blanco);border-radius:18px;box-shadow:0 20px 60px rgba(14,42,71,.35);
+  max-width:480px;width:100%;padding:30px;text-align:center;
+}
+.overlay .logo{font-size:30px;margin-bottom:6px}
+.overlay h2{font-size:22px;color:var(--navy);margin-bottom:12px}
+.overlay p{margin-bottom:10px;font-size:14.5px;color:var(--texto)}
+.overlay .btn{margin-top:8px}
+.oculto{display:none !important}
+.flash{animation:flashVerde .6s}
+@keyframes flashVerde{0%{box-shadow:0 0 0 3px var(--verde)}100%{box-shadow:var(--sombra)}}
+footer{margin-top:40px;text-align:center;font-size:12px;color:var(--gris)}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="nav">
+  <div class="nav-in">
+    <div class="logo">RULO<b>360</b></div>
+    <div class="nav-links">
+      <span class="activo">Vende tu auto</span>
+      <span>Compra un auto</span>
+      <span>Nosotros</span>
+      <span>Contacto</span>
+    </div>
+    <div class="nav-fono">📞 +56 9 RULO RULO</div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="wrap">
+    <h1>Lo pensaste, <b>lo compraste.</b></h1>
+    <p>Eres el cotizador oficial de Rulo360. Los clientes llegan a vender su auto: haz tu oferta de compra inmediata… sin ofenderlos.</p>
+    <div class="badges">
+      <div class="badge"><i>✓</i> Pago inmediato</div>
+      <div class="badge"><i>✓</i> Firma digital</div>
+      <div class="badge"><i>✓</i> Informe RuloFact</div>
+      <div class="badge"><i>✓</i> 100% transparente*</div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <!-- Marcador -->
+  <div class="marcador">
+    <div class="dato"><div class="et">Caja</div><div class="val plata" id="uiPlata">$0</div></div>
+    <div class="dato"><div class="et">Día</div><div class="val dia" id="uiDia">1 / 7</div></div>
+    <div class="dato"><div class="et">Cliente</div><div class="val" id="uiCliente">1 / 5</div></div>
+    <div class="dato"><div class="et">Reputación</div><div class="val rep" id="uiRep">★★★</div></div>
+  </div>
+
+  <!-- Negociación -->
+  <section class="card">
+    <div class="sec-titulo">
+      <h2>Cotización en curso</h2>
+      <span class="pill">COMPRA INMEDIATA</span>
+    </div>
+
+    <div class="nego">
+      <!-- Cliente -->
+      <div class="cliente-box">
+        <div class="cliente-top">
+          <div class="cara" id="uiCara">🙂</div>
+          <div>
+            <div class="cliente-nombre" id="uiNombre">—</div>
+            <div class="cliente-tag" id="uiPersonalidad">—</div>
+            <div class="verificado">✓ Identidad verificada</div>
+          </div>
+        </div>
+        <div class="globo" id="uiGlobo">…</div>
+        <div class="paciencia">
+          <div class="et"><span>Paciencia del cliente</span><span id="uiPacienciaTxt"></span></div>
+          <div class="barra"><i id="uiPaciencia" style="width:100%"></i></div>
+        </div>
+      </div>
+
+      <!-- Ficha del vehículo -->
+      <div class="ficha">
+        <div class="ficha-foto"><span class="tag360">RULOFACT ✓</span><span id="uiEmoji">🚗</span></div>
+        <div class="ficha-body">
+          <h3 id="uiAuto">—</h3>
+          <div class="specs">
+            <div class="s"><span>Año</span><b id="uiAnio">—</b></div>
+            <div class="s"><span>Kilometraje</span><b id="uiKm">—</b></div>
+            <div class="s"><span>Transmisión</span><b id="uiTrans">—</b></div>
+            <div class="s"><span>Combustible</span><b id="uiComb">—</b></div>
+            <div class="s" style="grid-column:1/-1"><span>Estado (según dueño)</span><b id="uiEstado">—</b></div>
+          </div>
+          <div class="pide">
+            <small>Precio que pide</small>
+            <span class="monto" id="uiPide">$—</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cotizador -->
+      <div class="cotizador" id="uiControles">
+        <div class="et">Tu oferta de compra inmediata</div>
+        <div class="chips" id="uiChips"></div>
+        <div class="linea-oferta">
+          <input type="text" id="inputOferta" inputmode="numeric" placeholder="Ej: 4.500.000" aria-label="Monto de tu oferta">
+          <button class="btn primario" id="btnOfertar">Enviar oferta</button>
+        </div>
+        <div class="acciones-extra">
+          <button class="btn fantasma" id="btnPasar">Rechazar vehículo ✕</button>
+        </div>
+      </div>
+      <div class="acciones-extra cotizador oculto" id="uiSiguiente">
+        <button class="btn naranja" id="btnSiguiente">Siguiente cliente →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Catálogo -->
+  <section class="card">
+    <div class="sec-titulo">
+      <h2>Nuestro catálogo</h2>
+      <span class="pill" id="uiStock">0 RESULTADOS</span>
+    </div>
+    <div class="grid-autos" id="uiPatio"></div>
+  </section>
+
+  <!-- Registro -->
+  <section class="card">
+    <div class="sec-titulo"><h2>Movimientos</h2></div>
+    <div class="log" id="uiLog"></div>
+  </section>
+
+  <footer>* La transparencia puede variar según la oferta. Rulo360 es un juego, cualquier parecido con la realidad es pura coincidencia.</footer>
+</div>
+
+<!-- Inicio -->
+<div class="overlay" id="ovInicio">
+  <div class="caja">
+    <div class="logo">RULO<b>360</b></div>
+    <h2>Vende tu auto al instante… bueno, cómpralo tú</h2>
+    <p>Eres el cotizador de una automotora digital. Los clientes llegan con su auto y tú haces la <b>oferta de compra inmediata</b>.</p>
+    <p>Si ofreces muy poco, <b>se ofenden y se van</b> (adiós reputación). Si pagas de más, pierdes al revender en el catálogo.</p>
+    <p>Ojo: algunos clientes <b>mienten</b> sobre el estado del vehículo, y el informe RuloFact solo aparece <i>después</i> de comprar…</p>
+    <p>Tienes <b>7 días</b> y <b>$10.000.000</b>.</p>
+    <button class="btn primario" id="btnEmpezar">Abrir la sucursal</button>
+  </div>
+</div>
+
+<!-- Fin -->
+<div class="overlay oculto" id="ovFin">
+  <div class="caja">
+    <div class="logo">RULO<b>360</b></div>
+    <h2 id="finTitulo">Cierre de semana</h2>
+    <p id="finResumen"></p>
+    <p id="finRango" style="font-family:'Poppins';font-weight:800;color:var(--naranja);font-size:19px"></p>
+    <button class="btn verde" id="btnReiniciar">Jugar de nuevo</button>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* ══════════ Datos ══════════ */
+const AUTOS = [
+  {m:"Nissan V16", base:2800000, e:"🚙"},
+  {m:"Chevrolet Corsa", base:2500000, e:"🚗"},
+  {m:"Kia Morning", base:4200000, e:"🚗"},
+  {m:"Suzuki Swift", base:6500000, e:"🚗"},
+  {m:"Chevrolet Sail", base:5200000, e:"🚗"},
+  {m:"Toyota Yaris", base:7800000, e:"🚗"},
+  {m:"Hyundai Accent", base:7200000, e:"🚘"},
+  {m:"Peugeot 208", base:8500000, e:"🚗"},
+  {m:"Mazda 3", base:11000000, e:"🚘"},
+  {m:"Toyota Hilux", base:16000000, e:"🛻"},
+  {m:"Subaru XV", base:12500000, e:"🚙"},
+  {m:"Suzuki Baleno", base:7000000, e:"🚗"},
+];
+const NOMBRES = ["Don Patricio","La Sra. Rosa","El Tío Jaime","Doña Carmen","Marcelo","La Pame","Don Segundo","Vale","El Kevin","Doña Mireya","Cristóbal","La Tía Inés","Bastián","Don Aliro","Fernanda"];
+const CARAS = ["🧔","👵","👨‍🦳","👩","🧑","👩‍🦱","👴","👱‍♀️","🧢","👩‍🦳","🧑‍💼","👒","🧑‍🔧","🎩","👩‍💼"];
+
+const PERSONALIDADES = [
+  {id:"orgulloso", tag:"Orgulloso de su auto — se ofende fácil", tolerancia:0.62, minFactor:0.88, paciencia:2},
+  {id:"apurado",   tag:"Necesita la plata YA",                    tolerancia:0.45, minFactor:0.72, paciencia:3},
+  {id:"chamullero",tag:"Habla demasiado bien de su auto…",        tolerancia:0.50, minFactor:0.80, paciencia:3, miente:true},
+  {id:"duro",      tag:"Negociador duro",                          tolerancia:0.55, minFactor:0.92, paciencia:4},
+  {id:"abuelito",  tag:"Lo vende porque ya no maneja",             tolerancia:0.40, minFactor:0.70, paciencia:3},
+];
+
+const FRASES = {
+  llegada:[
+    "Buenas, cotizé en la página y me salió harto poco. A ver si en persona mejoran la oferta 😏",
+    "Hola, ando vendiendo mi autito. Pide {pide}, pero escucho ofertas.",
+    "Me dijeron que aquí pagan al tiro. Este es mi auto, ¿le interesa?",
+    "Vengo llegando del lavado, mírelo cómo brilla. ¿Hacemos negocio?",
+  ],
+  acepta:[
+    "Ya po, trato hecho. ¡Transferencia inmediata dijeron! 🤝",
+    "Mmm… ya, me sirve. Firmemos digital no más.",
+    "¡Vendido! Cuídemelo eso sí.",
+    "Ya, filo, se lo dejo. ¿Dónde firmo?",
+  ],
+  contra:[
+    "¿{oferta}? Nooo, súbale un poquito po, caserito.",
+    "Me está bajoneando el auto… algo más cercano a {pide} y hablamos.",
+    "Con eso no llego ni a fin de mes. Mejore la oferta.",
+    "Casi… casi. Un empujoncito más y es suyo.",
+  ],
+  ofendido:[
+    "¿¡{oferta}!? ¿Me vio cara de tonto? ¡Me voy! 😤",
+    "¡Qué falta de respeto! Este auto es mi vida. ¡Adiós!",
+    "¡Con esa oferta ni el espejo le vendo! Chao no más.",
+    "Prefiero regalárselo a mi sobrino antes que aceptarle eso. ¡Buenas tardes!",
+  ],
+  sinPaciencia:[
+    "Sabe qué, mejor lo subo a un marketplace. Que le vaya bien.",
+    "Ya me aburrí de regatear. Chao.",
+  ],
+  pasar:[
+    "¿No le interesa? Bueno, usted se lo pierde.",
+    "Ya, iré donde la competencia entonces.",
+  ],
+};
+
+const DEFECTOS = [
+  {t:"caja de cambios dura", f:0.75},
+  {t:"motor consume aceite", f:0.65},
+  {t:"chocado y mal pintado", f:0.7},
+  {t:"kilometraje adulterado", f:0.8},
+  {t:"tren delantero sonando", f:0.85},
+];
+
+/* ══════════ Estado ══════════ */
+const S = {};
+const CLIENTES_POR_DIA = 5, DIAS = 7, PLATA_INICIAL = 10000000;
+
+function nuevoJuego(){
+  Object.assign(S,{plata:PLATA_INICIAL, dia:1, cliente:0, rep:3, patio:[], actual:null, fase:"nego"});
+  document.getElementById("uiLog").innerHTML = "";
+  log("Abriste la sucursal con " + clp(PLATA_INICIAL) + ".", "");
+  nuevoCliente();
+  render();
+}
+
+/* ══════════ Utilidades ══════════ */
+const r = (a,b)=>a+Math.random()*(b-a);
+const ri = (a,b)=>Math.floor(r(a,b+1));
+const pick = arr=>arr[ri(0,arr.length-1)];
+const clp = n=>"$"+Math.round(n).toLocaleString("es-CL");
+function parseMonto(s){
+  s = (s||"").toLowerCase().replace(/\$/g,"").trim();
+  if(/^[\d.,\s]+$/.test(s)){
+    const n = parseInt(s.replace(/[.,\s]/g,""),10);
+    return isNaN(n)?null:n;
+  }
+  const m = s.match(/^([\d.,]+)\s*(m|kk|mill|millones|palos?)$/);
+  if(m) return Math.round(parseFloat(m[1].replace(",","."))*1000000);
+  return null;
+}
+function log(txt, cls){
+  const p = document.createElement("p");
+  p.textContent = "Día "+S.dia+" · "+txt;
+  if(cls) p.className = cls;
+  document.getElementById("uiLog").prepend(p);
+}
+
+/* ══════════ Generación de clientes ══════════ */
+function nuevoCliente(){
+  S.cliente++;
+  const idx = ri(0,NOMBRES.length-1);
+  const per = pick(PERSONALIDADES);
+  const auto = pick(AUTOS);
+  const anio = ri(2008,2023);
+  const km = ri(30,220)*1000;
+  let valor = auto.base * r(0.9,1.15) * (1 - (2024-anio)*0.015) * (1 - km/1000000);
+  let defecto = null;
+  if(per.miente || Math.random()<0.22){
+    defecto = pick(DEFECTOS);
+    valor *= defecto.f;
+  }
+  valor = Math.round(valor/50000)*50000;
+  const repBonus = 1 - (S.rep-3)*0.02;
+  const minimo = Math.round(valor*per.minFactor*repBonus/50000)*50000;
+  const pide = Math.round(valor*r(1.15,1.45)/50000)*50000;
+
+  S.actual = {
+    nombre:NOMBRES[idx], cara:CARAS[idx], per, auto, anio, km,
+    valor, minimo, pide, defecto,
+    paciencia:per.paciencia, pacienciaMax:per.paciencia,
+    animo:100,
+    trans: Math.random()<0.6 ? "Mecánica" : "Automática",
+    comb: Math.random()<0.85 ? "Bencina" : "Diésel",
+    estado: defecto && !per.miente ? "«tiene sus detalles»" : "«impecable, una joyita»",
+  };
+  S.fase = "nego";
+  decir(pick(FRASES.llegada).replace("{pide}", clp(pide)));
+}
+
+/* ══════════ Negociación ══════════ */
+function ofertar(){
+  if(S.fase!=="nego") return;
+  const c = S.actual;
+  const monto = parseMonto(document.getElementById("inputOferta").value);
+  if(monto===null || monto<=0){ decir("¿Ah? No le entendí el número, caserito."); return; }
+  if(monto > S.plata){ decir("Jajaja, ¡si no le alcanza la plata! Su caja tiene "+clp(S.plata)+"."); return; }
+
+  if(monto >= c.minimo){ comprar(monto); return; }
+
+  const ratio = monto / c.minimo;
+  if(ratio < c.per.tolerancia){
+    c.animo = 0;
+    ofender(pick(FRASES.ofendido).replace("{oferta}", clp(monto)), true);
+    return;
+  }
+  c.paciencia--;
+  c.animo = Math.max(10, Math.round(ratio*100)-10);
+  if(c.paciencia<=0){ ofender(pick(FRASES.sinPaciencia), false); return; }
+  c.pide = Math.max(c.minimo, Math.round(c.pide*r(0.9,0.97)/50000)*50000);
+  decir(pick(FRASES.contra).replace("{oferta}",clp(monto)).replace("{pide}",clp(c.pide)));
+  const caraEl = document.getElementById("uiCara");
+  caraEl.classList.add("molesto");
+  setTimeout(()=>caraEl.classList.remove("molesto"),400);
+  render();
+}
+
+function comprar(monto){
+  const c = S.actual;
+  S.plata -= monto;
+  S.patio.push({desc:c.auto.m+" "+c.anio, e:c.auto.e, km:c.km, valor:c.valor, pagado:monto, defecto:c.defecto});
+  decir(pick(FRASES.acepta));
+  document.getElementById("uiCara").textContent = "🤝";
+  if(c.defecto){
+    log("Compraste "+c.auto.m+" "+c.anio+" por "+clp(monto)+". El informe RuloFact reveló: ¡"+c.defecto.t+"!", "malo");
+  } else {
+    log("Compraste "+c.auto.m+" "+c.anio+" por "+clp(monto)+". Informe RuloFact: limpio ✓", "bueno");
+  }
+  if(monto <= c.minimo*1.05 && S.rep<5 && Math.random()<0.3){ S.rep++; }
+  S.fase = "fin";
+  render();
+}
+
+function ofender(frase, conRep){
+  decir(frase);
+  const caraEl = document.getElementById("uiCara");
+  caraEl.textContent = "🤬";
+  caraEl.classList.add("molesto");
+  if(conRep && S.rep>1){ S.rep--; log(S.actual.nombre+" se fue ofendido y dejó una reseña de 1 estrella. Reputación baja.", "malo"); }
+  else log(S.actual.nombre+" se fue sin vender.", "");
+  S.fase = "fin";
+  render();
+}
+
+function pasar(){
+  if(S.fase!=="nego") return;
+  decir(pick(FRASES.pasar));
+  log("Rechazaste el "+S.actual.auto.m+" de "+S.actual.nombre+".", "");
+  S.fase = "fin";
+  render();
+}
+
+function siguiente(){
+  if(S.cliente >= CLIENTES_POR_DIA){
+    S.dia++;
+    S.cliente = 0;
+    if(S.dia > DIAS){ finJuego(); return; }
+    log("── Amanece el día "+S.dia+" ──","");
+  }
+  document.getElementById("inputOferta").value = "";
+  nuevoCliente();
+  render();
+}
+
+/* ══════════ Venta del catálogo ══════════ */
+function vender(i){
+  const a = S.patio[i];
+  const precio = Math.round(a.valor * r(0.95,1.25) /50000)*50000;
+  const ganancia = precio - a.pagado;
+  S.plata += precio;
+  S.patio.splice(i,1);
+  log("Vendiste "+a.desc+" en "+clp(precio)+" ("+(ganancia>=0?"+":"−")+clp(Math.abs(ganancia)).replace("$","$")+" de "+(ganancia>=0?"ganancia":"pérdida")+").", ganancia>=0?"bueno":"malo");
+  render(true);
+}
+
+/* ══════════ Fin ══════════ */
+function finJuego(){
+  const stock = S.patio.reduce((s,a)=>s+a.valor,0);
+  const total = S.plata + stock;
+  const dif = total - PLATA_INICIAL;
+  let rango = "🪙 Vendedor de feria";
+  if(dif > 8000000) rango = "👑 Gerente General de Rulo360";
+  else if(dif > 4000000) rango = "🏆 Tiburón de las ventas";
+  else if(dif > 1000000) rango = "🚗 Buen caserito";
+  else if(dif < 0) rango = "📉 Mejor dedíquese a otra cosa…";
+  document.getElementById("finResumen").innerHTML =
+    "Caja final: <b>"+clp(S.plata)+"</b><br>Autos en catálogo (valor): <b>"+clp(stock)+"</b><br>Resultado de la semana: <b style='color:"+(dif>=0?"var(--verde)":"var(--rojo)")+"'>"+(dif>=0?"+":"")+clp(dif)+"</b>";
+  document.getElementById("finRango").textContent = rango;
+  document.getElementById("ovFin").classList.remove("oculto");
+}
+
+/* ══════════ Render ══════════ */
+function decir(t){ document.getElementById("uiGlobo").textContent = t; }
+
+function render(flashPlata){
+  const c = S.actual;
+  document.getElementById("uiPlata").textContent = clp(S.plata);
+  document.getElementById("uiDia").textContent = Math.min(S.dia,DIAS)+" / "+DIAS;
+  document.getElementById("uiCliente").textContent = S.cliente+" / "+CLIENTES_POR_DIA;
+  document.getElementById("uiRep").textContent = "★".repeat(S.rep)+"☆".repeat(5-S.rep);
+
+  if(c){
+    document.getElementById("uiNombre").textContent = c.nombre;
+    document.getElementById("uiPersonalidad").textContent = c.per.tag;
+    document.getElementById("uiAuto").textContent = c.auto.m+" "+c.anio;
+    document.getElementById("uiEmoji").textContent = c.auto.e;
+    document.getElementById("uiAnio").textContent = c.anio;
+    document.getElementById("uiKm").textContent = c.km.toLocaleString("es-CL")+" km";
+    document.getElementById("uiTrans").textContent = c.trans;
+    document.getElementById("uiComb").textContent = c.comb;
+    document.getElementById("uiEstado").textContent = c.estado;
+    document.getElementById("uiPide").textContent = clp(c.pide);
+    const p = document.getElementById("uiPaciencia");
+    const pct = Math.max(0,(c.paciencia/c.pacienciaMax)*100);
+    p.style.width = pct+"%";
+    p.style.background = pct>60?"var(--verde)":pct>30?"var(--naranja)":"var(--rojo)";
+    document.getElementById("uiPacienciaTxt").textContent = c.paciencia+" intento"+(c.paciencia===1?"":"s");
+    if(S.fase==="nego"){
+      document.getElementById("uiCara").textContent = c.animo>70?c.cara : c.animo>40?"😐":"😠";
+    }
+    const chips = document.getElementById("uiChips");
+    chips.innerHTML = "";
+    [0.5,0.7,0.85,1].forEach(f=>{
+      const b = document.createElement("button");
+      const v = Math.round(c.pide*f/50000)*50000;
+      b.className = "chip";
+      b.textContent = (f*100)+"% · "+clp(v);
+      b.onclick = ()=>{ document.getElementById("inputOferta").value = v.toLocaleString("es-CL"); };
+      chips.appendChild(b);
+    });
+  }
+  document.getElementById("uiControles").classList.toggle("oculto", S.fase!=="nego");
+  document.getElementById("uiSiguiente").classList.toggle("oculto", S.fase==="nego");
+
+  // Catálogo
+  const patio = document.getElementById("uiPatio");
+  document.getElementById("uiStock").textContent = S.patio.length+" RESULTADO"+(S.patio.length===1?"":"S");
+  patio.innerHTML = "";
+  if(!S.patio.length){
+    patio.innerHTML = '<p class="patio-vacio">Catálogo vacío. Compra tu primer auto para publicarlo aquí.</p>';
+  } else {
+    S.patio.forEach((a,i)=>{
+      const d = document.createElement("div");
+      d.className = "auto-card";
+      d.innerHTML = '<div class="auto-foto">'+a.e+'</div>'+
+        '<div class="auto-body"><div class="desc">'+a.desc+'</div>'+
+        '<div class="sub">'+a.km.toLocaleString("es-CL")+' km · Pagaste '+clp(a.pagado)+'</div>'+
+        (a.defecto?'<div class="defecto">⚠ '+a.defecto.t+'</div>':'')+
+        '</div>';
+      const b = document.createElement("button");
+      b.className = "btn primario"; b.textContent = "Vender ahora";
+      b.onclick = ()=>vender(i);
+      d.querySelector(".auto-body").appendChild(b);
+      patio.appendChild(d);
+    });
+  }
+  if(flashPlata){
+    const panel = document.querySelector(".marcador .dato");
+    panel.classList.remove("flash"); void panel.offsetWidth; panel.classList.add("flash");
+  }
+}
+
+/* ══════════ Eventos ══════════ */
+document.getElementById("btnOfertar").onclick = ofertar;
+document.getElementById("btnPasar").onclick = pasar;
+document.getElementById("btnSiguiente").onclick = siguiente;
+document.getElementById("inputOferta").addEventListener("keydown", e=>{ if(e.key==="Enter") ofertar(); });
+document.getElementById("btnEmpezar").onclick = ()=>{
+  document.getElementById("ovInicio").classList.add("oculto");
+  nuevoJuego();
+};
+document.getElementById("btnReiniciar").onclick = ()=>{
+  document.getElementById("ovFin").classList.add("oculto");
+  nuevoJuego();
+};
+</script>
+</body>
+</html>
